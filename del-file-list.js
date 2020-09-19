@@ -1,13 +1,13 @@
 const fs = require('fs');
+const path = require('path');
 
 function deleteFiles(files, callback){
   let i = files.length;
   files.forEach(filepath => {
-    fs.unlink(filepath, err => {
+    fs.unlink(path.join(__dirname, filepath), err => {
       i--;
       if (err) {
         callback(err);
-        return;
       } else if (i <= 0) {
         callback(null);
       }
@@ -15,9 +15,11 @@ function deleteFiles(files, callback){
   });
 }
 
-// place here array of file list
+// place here array of file list as string array
 const files = [
-  'file1.js', 'file2.jpg', 'file3.css'
+  'src/some-file.js',
+  'src/some-other-file.js',
+  '...'
 ];
 
 deleteFiles(files, (err) => {
